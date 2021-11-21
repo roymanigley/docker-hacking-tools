@@ -1,0 +1,18 @@
+version: '3.0'
+
+services:
+  hacking-tools:
+    build: hacking-tools
+    ports:
+      - 4040-4080:4040-4080
+    user: hacker:hacker
+    volumes:
+      - ./hacking-tools-share:/home/hacker/share:rw
+    privileged: true
+
+  # metasploit:
+  #   image: metasploitframework/metasploit-framework
+  #   ports:
+  #     - 4000-4039:4000-4039
+  #   volumes:
+  #     - ./metasploit-share:/mnt/host/share:rw
