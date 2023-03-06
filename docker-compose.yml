@@ -5,14 +5,9 @@ services:
     build: hacking-tools
     ports:
       - 4040-4080:4040-4080
-    user: hacker:hacker
+    environment:
+        - USER_LOGIN=hacker
+        - USER_PASS=hacker
     volumes:
       - ./hacking-tools-share:/home/hacker/share:rw
     privileged: true
-
-  # metasploit:
-  #   image: metasploitframework/metasploit-framework
-  #   ports:
-  #     - 4000-4039:4000-4039
-  #   volumes:
-  #     - ./metasploit-share:/mnt/host/share:rw
