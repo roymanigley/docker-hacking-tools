@@ -5,9 +5,6 @@ services:
     build: hacking-tools
     ports:
       - 4040-4080:4040-4080
-    environment:
-        - USER_LOGIN=hacker
-        - USER_PASS=hacker
     volumes:
       - ./hacking-tools-share:/home/hacker/share:rw
     privileged: true

